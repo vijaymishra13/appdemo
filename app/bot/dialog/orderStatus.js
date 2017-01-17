@@ -15,11 +15,13 @@ const MainOptions = {
   TaskInfo: 'Want info on associated Task'
 };
 
+var activityName;
 library.dialog('/', [
   function (session, args, next) {
 
     if(session.message.text.trim().toUpperCase() === MainOptions.ActivityInfo.toUpperCase()) {
       // Activity info
+      session.dialogData.activityName = activityName;
       return session.beginDialog('activityinfo:/');
     }
     else if(session.message.text.trim().toUpperCase() === MainOptions.TaskInfo.toUpperCase()){
@@ -50,19 +52,14 @@ library.dialog('/', [
 
     // Prompt for time (title will be blank if the user said cancel)
     if (orderContext.orderNumber != null) {
-      session.send('Okay. Let me get information on Order Number ' + orderContext.orderNumber);
       var orderData = orderStatusService.getOrderStatus(orderContext.orderNumber);
       session.dialogData.activityName = orderData.currentActivity;
+      activityName = orderData.currentActivity;
       var orderStatusCard = new builder.HeroCard(session)
         .title('Order Status')
         .subtitle('Order Number: ' + orderContext.orderNumber)
         .text('This order is for Customer ' + orderData.customerName + ' and started on ' + orderData.orderStart + '\n' +
         ' and currently on Activity ' + orderData.currentActivity + ' for past ' + orderData.timeOnCurrentActivity + '.')
-        .images([
-          new builder.CardImage(session)
-            .url('TBD')
-            .alt('Subway Map...!!')
-        ])
         .buttons([
           builder.CardAction.imBack(session, MainOptions.ActivityInfo, MainOptions.ActivityInfo),
           builder.CardAction.imBack(session, MainOptions.TaskInfo, MainOptions.TaskInfo)

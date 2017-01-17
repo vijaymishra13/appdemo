@@ -3,11 +3,6 @@
  */
 
 var builder = require('botbuilder');
-
-var orderStatusService = require('../../services/order-status-service');
-var taskService = require('../../services/task-services');
-var activityService = require('../../services/activity-service');
-
 const library = new builder.Library('activityinfo');
 
 var activityService = require('../../services/activity-service');
@@ -15,8 +10,9 @@ var activityService = require('../../services/activity-service');
 library.dialog('/', [
   function (session, args, next) {
     // Resolve and store any entities passed from LUIS.
+    console.log("Session.DialogData : " + JSON.stringify(session.dialogData));
     var activityName = session.dialogData.activityName;
-    if(session.dialogData.activityName == null && args ){
+    if(args ){
       var actName = builder.EntityRecognizer.findEntity(args.entities, 'activityName');
       if(actName != null){
         session.dialogData.activityName = actName.entity;
@@ -46,12 +42,7 @@ library.dialog('/', [
         .subtitle('Description: ' + activityData.description)
         .text('This Activity is owned by ' + activityData.owner + ' and on average takes ' + activityData.duration.average +
         '. Past records indicates that it may take ' + activityData.duration.fastest + ' to ' + activityData.duration.slowest
-        + ' to complete.')
-        .images([
-          new builder.CardImage(session)
-            .url('TBD')
-            .alt('Subway Map...!!')
-        ]);
+        + ' to complete.');
 
       session.send(new builder.Message(session)
         .addAttachment(activityInfoCard));

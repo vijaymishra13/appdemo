@@ -21,5 +21,5 @@ server.listen(port, function() {
   console.log('Listening on %s', port);
 });
 
-var bot = require('./app/bot');
+var bot = require('./app/bot/index');
 app.post('/api/messages', bot.listen());
