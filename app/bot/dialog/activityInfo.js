@@ -35,7 +35,9 @@ library.dialog('/', [
 
     // Prompt for time (title will be blank if the user said cancel)
     if (session.dialogData.activityName != null) {
-      var activityData = activityService.getActivityInformation(session.conversationData.activityName);
+      console.log('Processing activity - ' + session.dialogData.activityName);
+      var activityData = activityService.getActivityInformation(session.dialogData.activityName);
+      console.log('Processing activity - CP2 - ' + session.dialogData.activityName);
       var activityInfoCard = new builder.HeroCard(session)
         .title('Activity: ' + session.dialogData.activityName)
         .subtitle('Description: ' + activityData.description)
@@ -43,9 +45,10 @@ library.dialog('/', [
         '. Past records indicates that it may take ' + activityData.duration.fastest + ' to ' + activityData.duration.slowest
         + ' to complete.');
 
+      console.log('Processing activity - CP3 ' + session.dialogData.activityName);
       session.send(new builder.Message(session)
         .addAttachment(activityInfoCard));
-
+      console.log('Processing activity -  CP4' + session.dialogData.activityName);
       builder.Prompts.text(session, 'Enter Ok to continue...');
 
     } else {
