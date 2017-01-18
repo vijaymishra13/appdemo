@@ -15,13 +15,12 @@ const MainOptions = {
   TaskInfo: 'Info on associated Tasks'
 };
 
-var activityName;
 library.dialog('/', [
   function (session, args, next) {
 
     if(session.message.text.trim().toUpperCase() === MainOptions.ActivityInfo.toUpperCase()) {
       // Activity info
-      session.conversationData.activityName = activityName;
+      session.conversationData.activityName = session.dialogData.activityName;
       return session.beginDialog('activityinfo:/');
     }
     else if(session.message.text.trim().toUpperCase() === MainOptions.TaskInfo.toUpperCase()){
@@ -64,8 +63,7 @@ library.dialog('/', [
         var orderData = orderStatusService.getOrderStatus(orderContext.orderNumber);
 
         console.log('orderContext.orderNumber' + orderContext.orderNumber);
-
-        activityName = orderData.currentActivity;
+        session.dialogData.activityName = orderData.currentActivity;
         var orderStatusCard = new builder.HeroCard(session)
           .title('Order Status')
           .subtitle('Order Number: ' + orderContext.orderNumber)
