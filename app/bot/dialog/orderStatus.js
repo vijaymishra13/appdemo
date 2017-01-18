@@ -30,7 +30,10 @@ library.dialog('/', [
       session.conversationData.orderNumber = session.dialogData.orderContext.orderNumber;
       return session.beginDialog('taskinfo:/');
     }
-    if(session.message.text.trim().toUpperCase() === 'THANKS') {
+    if(session.message.text.trim().toUpperCase() === 'THANKS'
+      || session.message.text.trim().toUpperCase() === 'BYE'
+      || session.message.text.trim().toUpperCase() === 'DONE'
+      || session.message.text.trim().toUpperCase() === 'OK') {
       // Thanks
       session.send('Have a nice day!');
       return session.endDialogWithResult({result : 'OK'});
