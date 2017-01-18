@@ -11,8 +11,8 @@ var taskService = require('../../services/task-services');
 const library = new builder.Library('orderstatus');
 
 const MainOptions = {
-  ActivityInfo: 'More info on Current Activity',
-  TaskInfo: 'Want info on associated Task'
+  ActivityInfo: 'Info on Current Activity',
+  TaskInfo: 'Info on associated Tasks'
 };
 
 var activityName;
@@ -21,13 +21,21 @@ library.dialog('/', [
 
     if(session.message.text.trim().toUpperCase() === MainOptions.ActivityInfo.toUpperCase()) {
       // Activity info
-      session.dialogData.activityName = activityName;
+      session.conversationData.activityName = activityName;
+      session.conversationData.orderNumber = session.dialogData.orderContext.orderNumber;
       return session.beginDialog('activityinfo:/');
     }
     else if(session.message.text.trim().toUpperCase() === MainOptions.TaskInfo.toUpperCase()){
+      session.conversationData.activityName = activityName;
+      session.conversationData.orderNumber = session.dialogData.orderContext.orderNumber;
       return session.beginDialog('taskinfo:/');
     }
-
+    if(session.message.text.trim().toUpperCase() === 'THANKS') {
+      // Thanks
+      session.send('Have a nice day!');
+      return session.endDialogWithResult({result : 'OK'});
+    }
+    else{
       // Resolve and store any entities passed from LUIS.
       var orderNumber = builder.EntityRecognizer.findEntity(args.entities, 'orderNumber');
 
@@ -35,43 +43,50 @@ library.dialog('/', [
         orderNumber: orderNumber ? orderNumber.entity : null
       };
 
-      console.log("Order Number: " + orderContext.orderNumber);
       // Prompt for title
       if (orderContext.orderNumber == null) {
         builder.Prompts.text(session, 'What is the order you are looking for?');
       } else {
         next({response : orderNumber.entity});
       }
+    }
   },
   function (session, results, next) {
-    var orderContext = session.dialogData.orderContext;
-    console.log("Results respone: " + results.response);
-    if (results.response) {
-      orderContext.orderNumber = results.response;
-    }
+      var orderContext = session.dialogData.orderContext;
+      console.log("Results respone: " + results.response);
+      if (results.response) {
+        orderContext.orderNumber = results.response;
+      }
 
-    // Prompt for time (title will be blank if the user said cancel)
-    if (orderContext.orderNumber != null) {
-      var orderData = orderStatusService.getOrderStatus(orderContext.orderNumber);
-      session.dialogData.activityName = orderData.currentActivity;
-      activityName = orderData.currentActivity;
-      var orderStatusCard = new builder.HeroCard(session)
-        .title('Order Status')
-        .subtitle('Order Number: ' + orderContext.orderNumber)
-        .text('This order is for Customer ' + orderData.customerName + ' and started on ' + orderData.orderStart + '\n' +
-        ' and currently on Activity ' + orderData.currentActivity + ' for past ' + orderData.timeOnCurrentActivity + '.')
-        .buttons([
-          builder.CardAction.imBack(session, MainOptions.ActivityInfo, MainOptions.ActivityInfo),
-          builder.CardAction.imBack(session, MainOptions.TaskInfo, MainOptions.TaskInfo)
-        ]);
+      // Prompt for time (title will be blank if the user said cancel)
+      if (orderContext.orderNumber != null) {
+        var orderData = orderStatusService.getOrderStatus(orderContext.orderNumber);
 
-      session.send(new builder.Message(session)
-        .addAttachment(orderStatusCard));
+        session.conversationData.activityName = orderData.currentActivity;
+        session.conversationData.orderNumber = orderContext.orderNumber;
 
-    } else {
-      session.send('Ok... no problem.');
-    }
+        console.log('orderContext.orderNumber' + orderContext.orderNumber);
+
+        activityName = orderData.currentActivity;
+        var orderStatusCard = new builder.HeroCard(session)
+          .title('Order Status')
+          .subtitle('Order Number: ' + orderContext.orderNumber)
+          .text('This order is for Customer ' + orderData.customerName + ' and started on ' + orderData.orderStart + '\n' +
+            ' and currently on Activity ' + orderData.currentActivity + ' for past ' + orderData.timeOnCurrentActivity + '.')
+          .buttons([
+            //builder.CardAction.dialogAction(session, 'activityinfo:/', null, MainOptions.ActivityInfo),
+            builder.CardAction.imBack(session, MainOptions.ActivityInfo, MainOptions.ActivityInfo),
+            builder.CardAction.imBack(session, MainOptions.TaskInfo, MainOptions.TaskInfo)
+          ]);
+
+        session.send(new builder.Message(session)
+          .addAttachment(orderStatusCard));
+
+      } else {
+        session.send('Ok... no problem.');
+      }
   }
 ]);
+
 
 module.exports = library;

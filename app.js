@@ -16,6 +16,10 @@ app.get('/', function(req, res) {
     res.send('Hello! I am your friendly App Support Bot. Talk to me via Skype!');
   })
 
+app.get('/terms', function(req, res) {
+  res.send('My terms are very difficult for you to meet');
+})
+
 // start the server
 server.listen(port, function() {
   console.log('Listening on %s', port);

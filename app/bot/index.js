@@ -19,12 +19,25 @@ bot.dialog('/', dialog);
 
 // Add intent handlers
 dialog.matches('getOrderStatus', 'orderstatus:/');
-dialog.onDefault(builder.DialogAction.send("Sorry! I didn't understand that."));
+dialog.onDefault([
+  function (session, args, next) {
+    session.send('Sorry, I did not understand that.');
+  }
+]);
+
+dialog.matches('greeting', [
+  function (session, args, next) {
+      session.send('Hello! I am new, so please be patient with me. :) What can I do for you today? ' +
+        'You can say things like "Where is my Order XYZ?" or "What does activity ABC mean?" etc.');
+      session.endDialogWithResult({result : 'OK'});
+    }
+]);
 
 
 bot.library(require('./dialog/orderStatus'));
 bot.library(require('./dialog/support'));
 bot.library(require('./dialog/activityInfo'));
+bot.library(require('./dialog/taskInfo'));
 
 // Connector listener wrapper to capture site url
 var connectorListener = connector.listen();

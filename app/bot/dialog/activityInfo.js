@@ -10,35 +10,35 @@ var activityService = require('../../services/activity-service');
 library.dialog('/', [
   function (session, args, next) {
     // Resolve and store any entities passed from LUIS.
-    console.log("Session.DialogData : " + JSON.stringify(session.dialogData));
-    var activityName = session.dialogData.activityName;
+    console.log("Session.conversationData : " + JSON.stringify(session.conversationData));
+    var activityName = session.conversationData.activityName;
     if(args ){
       var actName = builder.EntityRecognizer.findEntity(args.entities, 'activityName');
       if(actName != null){
-        session.dialogData.activityName = actName.entity;
+        session.conversationData.activityName = actName.entity;
       }
     }
 
-    console.log("Activity Name: " + session.dialogData.activityName);
+    console.log("Activity Name: " + session.conversationData.activityName);
     // Prompt for title
-    if (session.dialogData.activityName == null) {
+    if (session.conversationData.activityName == null) {
       builder.Prompts.text(session, 'What is the Activity you are looking for?');
     } else {
-      next({response : session.dialogData.activityName});
+      next({response : session.conversationData.activityName});
     }
   },
   function (session, results, next) {
-    var activityName = session.dialogData.activityName;
+    var activityName = session.conversationData.activityName;
     console.log("Results respone: " + results.response);
     if (results.response != null) {
-      session.dialogData.activityName = results.response;
+      session.conversationData.activityName = results.response;
     }
 
     // Prompt for time (title will be blank if the user said cancel)
-    if (session.dialogData.activityName != null) {
-      var activityData = activityService.getActivityInformation(session.dialogData.activityName);
+    if (session.conversationData.activityName != null) {
+      var activityData = activityService.getActivityInformation(session.conversationData.activityName);
       var activityInfoCard = new builder.HeroCard(session)
-        .title('Activity: ' + session.dialogData.activityName)
+        .title('Activity: ' + session.conversationData.activityName)
         .subtitle('Description: ' + activityData.description)
         .text('This Activity is owned by ' + activityData.owner + ' and on average takes ' + activityData.duration.average +
         '. Past records indicates that it may take ' + activityData.duration.fastest + ' to ' + activityData.duration.slowest
@@ -47,7 +47,7 @@ library.dialog('/', [
       session.send(new builder.Message(session)
         .addAttachment(activityInfoCard));
 
-      session.endDialogWithResult(activityData);
+      builder.Prompts.text(session, 'Enter anything to continue...');
 
     } else {
       session.endDialogWithResult('Since you have not entered an Activity, Ignoring this request.');
