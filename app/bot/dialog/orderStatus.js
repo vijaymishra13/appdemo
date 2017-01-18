@@ -22,11 +22,9 @@ library.dialog('/', [
     if(session.message.text.trim().toUpperCase() === MainOptions.ActivityInfo.toUpperCase()) {
       // Activity info
       session.conversationData.activityName = activityName;
-      session.conversationData.orderNumber = session.dialogData.orderContext.orderNumber;
       return session.beginDialog('activityinfo:/');
     }
     else if(session.message.text.trim().toUpperCase() === MainOptions.TaskInfo.toUpperCase()){
-      session.conversationData.activityName = activityName;
       session.conversationData.orderNumber = session.dialogData.orderContext.orderNumber;
       return session.beginDialog('taskinfo:/');
     }
@@ -65,9 +63,6 @@ library.dialog('/', [
       if (orderContext.orderNumber != null) {
         var orderData = orderStatusService.getOrderStatus(orderContext.orderNumber);
 
-        session.conversationData.activityName = orderData.currentActivity;
-        session.conversationData.orderNumber = orderContext.orderNumber;
-
         console.log('orderContext.orderNumber' + orderContext.orderNumber);
 
         activityName = orderData.currentActivity;
@@ -77,7 +72,6 @@ library.dialog('/', [
           .text('This order is for Customer ' + orderData.customerName + ' and started on ' + orderData.orderStart + '\n' +
             ' and currently on Activity ' + orderData.currentActivity + ' for past ' + orderData.timeOnCurrentActivity + '.')
           .buttons([
-            //builder.CardAction.dialogAction(session, 'activityinfo:/', null, MainOptions.ActivityInfo),
             builder.CardAction.imBack(session, MainOptions.ActivityInfo, MainOptions.ActivityInfo),
             builder.CardAction.imBack(session, MainOptions.TaskInfo, MainOptions.TaskInfo)
           ]);

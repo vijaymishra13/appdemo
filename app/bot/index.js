@@ -8,7 +8,7 @@ var connector = new builder.ChatConnector({
   appPassword: 'VGKr5wnsUjG4GF7MwkjRAFk'
 });
 
-var bot = new builder.UniversalBot(connector, { persistUserData: true });
+var bot = new builder.UniversalBot(connector, { persistUserData: true, persistConversationData: true });
 
 // LUIS Service for AppSupportDemo LUIS APP
 var model = 'https://api.projectoxford.ai/luis/v2.0/apps/f445ce5f-1520-4d0e-aca0-c49f7012a38f?subscription-key=e86a03e6ed394f1098da68f85f380f8e&verbose=true';

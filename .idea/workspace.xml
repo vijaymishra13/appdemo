@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="24d3fc2a-98f9-47ed-a2de-ba86cbaf6986" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bot/dialog/activityInfo.js" afterPath="$PROJECT_DIR$/app/bot/dialog/activityInfo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bot/dialog/taskInfo.js" afterPath="$PROJECT_DIR$/app/bot/dialog/taskInfo.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bot/dialog/orderStatus.js" afterPath="$PROJECT_DIR$/app/bot/dialog/orderStatus.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bot/index.js" afterPath="$PROJECT_DIR$/app/bot/index.js" />
     </list>
     <ignored path="simplebot1.iws" />
@@ -58,10 +57,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="taskInfo.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="taskInfo.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/bot/dialog/taskInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
+            <state relative-caret-position="568">
               <caret line="47" column="45" selection-start-line="47" selection-start-column="45" selection-end-line="47" selection-end-column="45" />
               <folding />
             </state>
@@ -81,8 +80,8 @@
       <file leaf-file-name="orderStatus.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/bot/dialog/orderStatus.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-306">
-              <caret line="34" column="61" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
+            <state relative-caret-position="122">
+              <caret line="23" column="59" selection-start-line="23" selection-start-column="59" selection-end-line="23" selection-end-column="59" />
               <folding>
                 <element signature="e#0#43#0" expanded="false" />
               </folding>
@@ -114,11 +113,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/bot/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="31" column="67" selection-start-line="31" selection-start-column="67" selection-end-line="31" selection-end-column="67" />
+            <state relative-caret-position="136">
+              <caret line="10" column="71" selection-start-line="10" selection-start-column="71" selection-end-line="10" selection-end-column="71" />
               <folding>
                 <element signature="e#0#43#0" expanded="false" />
               </folding>
@@ -151,10 +150,10 @@
         <option value="$PROJECT_DIR$/public/terms.html" />
         <option value="$PROJECT_DIR$/../../amdocs/bothost/index.html" />
         <option value="$PROJECT_DIR$/app/bot/dialog/taskdetail.js" />
-        <option value="$PROJECT_DIR$/app/bot/dialog/orderStatus.js" />
-        <option value="$PROJECT_DIR$/app/bot/index.js" />
         <option value="$PROJECT_DIR$/app/bot/dialog/activityInfo.js" />
         <option value="$PROJECT_DIR$/app/bot/dialog/taskInfo.js" />
+        <option value="$PROJECT_DIR$/app/bot/dialog/orderStatus.js" />
+        <option value="$PROJECT_DIR$/app/bot/index.js" />
       </list>
     </option>
   </component>
@@ -381,12 +380,12 @@
       <workItem from="1484612567067" duration="244000" />
       <workItem from="1484614215337" duration="13030000" />
       <workItem from="1484662664203" duration="28545000" />
-      <workItem from="1484745630098" duration="146000" />
+      <workItem from="1484745630098" duration="2485000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43602000" />
+    <option name="totallyTimeSpent" value="45941000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -713,26 +712,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/bot/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="31" column="67" selection-start-line="31" selection-start-column="67" selection-end-line="31" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#43#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/bot/dialog/orderStatus.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="34" column="61" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#43#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/bot/dialog/activityInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -743,9 +722,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/bot/dialog/taskInfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
+        <state relative-caret-position="568">
           <caret line="47" column="45" selection-start-line="47" selection-start-column="45" selection-end-line="47" selection-end-column="45" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/bot/dialog/orderStatus.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="23" column="59" selection-start-line="23" selection-start-column="59" selection-end-line="23" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#43#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/bot/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="10" column="71" selection-start-line="10" selection-start-column="71" selection-end-line="10" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#43#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
