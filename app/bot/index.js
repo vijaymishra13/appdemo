@@ -19,6 +19,8 @@ bot.dialog('/', dialog);
 
 // Add intent handlers
 dialog.matches('getOrderStatus', 'orderstatus:/');
+dialog.matches('getActivityInfo', 'activityinfo:/');
+dialog.matches('getTaskInfo', 'taskdetail:/');
 dialog.onDefault([
   function (session, args, next) {
     session.send('Sorry, I did not understand that.');
@@ -38,6 +40,7 @@ bot.library(require('./dialog/orderStatus'));
 bot.library(require('./dialog/support'));
 bot.library(require('./dialog/activityInfo'));
 bot.library(require('./dialog/taskInfo'));
+bot.library(require('./dialog/taskdetail'));
 
 // Connector listener wrapper to capture site url
 var connectorListener = connector.listen();
