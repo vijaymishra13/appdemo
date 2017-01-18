@@ -29,7 +29,7 @@ dialog.onDefault([
 
 dialog.matches('greeting', [
   function (session, args, next) {
-      session.send('Hello! I am new, so please be patient with me. :) What can I do for you today? ' +
+      session.send('Hello! I am new, so please be patient with me. What can I do for you today? ' +
         'You can say things like "Where is my Order XYZ?" or "What does activity ABC mean?" etc.');
       session.endDialogWithResult({result : 'OK'});
     }

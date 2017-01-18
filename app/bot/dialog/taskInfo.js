@@ -45,7 +45,7 @@ library.dialog('/', [
       session.send(new builder.Message(session)
         .addAttachment(taskInfoCard));
 
-      builder.Prompts.text(session, 'Enter anything to continue...');
+      builder.Prompts.text(session, 'Enter Ok to continue...');
 
     } else {
       session.endDialogWithResult('Since you have not entered an Task, Ignoring this request.');
