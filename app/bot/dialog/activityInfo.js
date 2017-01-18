@@ -11,34 +11,33 @@ library.dialog('/', [
   function (session, args, next) {
     // Resolve and store any entities passed from LUIS.
     console.log("Session.conversationData : " + JSON.stringify(session.conversationData));
-    var activityName = session.conversationData.activityName;
+    session.dialogData.activityName = session.conversationData.activityName;
     if(args ){
       var actName = builder.EntityRecognizer.findEntity(args.entities, 'activityName');
       if(actName != null){
-        session.conversationData.activityName = actName.entity;
+        session.dialogData.activityName = actName.entity;
       }
     }
 
-    console.log("Activity Name: " + session.conversationData.activityName);
+    console.log("Activity Name: " + session.dialogData.activityName);
     // Prompt for title
-    if (session.conversationData.activityName == null) {
+    if (session.dialogData.activityName == null) {
       builder.Prompts.text(session, 'What is the Activity you are looking for?');
     } else {
-      next({response : session.conversationData.activityName});
+      next({response : session.dialogData.activityName});
     }
   },
   function (session, results, next) {
-    var activityName = session.conversationData.activityName;
     console.log("Results respone: " + results.response);
     if (results.response != null) {
-      session.conversationData.activityName = results.response;
+      session.dialogData.activityName = results.response;
     }
 
     // Prompt for time (title will be blank if the user said cancel)
-    if (session.conversationData.activityName != null) {
+    if (session.dialogData.activityName != null) {
       var activityData = activityService.getActivityInformation(session.conversationData.activityName);
       var activityInfoCard = new builder.HeroCard(session)
-        .title('Activity: ' + session.conversationData.activityName)
+        .title('Activity: ' + session.dialogData.activityName)
         .subtitle('Description: ' + activityData.description)
         .text('This Activity is owned by ' + activityData.owner + ' and on average takes ' + activityData.duration.average +
         '. Past records indicates that it may take ' + activityData.duration.fastest + ' to ' + activityData.duration.slowest
